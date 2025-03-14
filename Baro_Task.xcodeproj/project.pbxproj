@@ -21,7 +21,7 @@
 		45BE4A1C2D841B0200FA60B8 /* Exceptions for "Baro_Task" folder in "Baro_Task" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Info.plist,
+				Application/Info.plist,
 			);
 			target = 45BE4A062D841B0100FA60B8 /* Baro_Task */;
 		};
@@ -166,7 +166,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SUHZ238M29;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Baro_Task/Info.plist;
+				INFOPLIST_FILE = Baro_Task/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -198,7 +198,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SUHZ238M29;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Baro_Task/Info.plist;
+				INFOPLIST_FILE = Baro_Task/Application/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
