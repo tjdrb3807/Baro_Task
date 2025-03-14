@@ -1,0 +1,32 @@
+# Xcode 관련 파일
+DerivedData/
+xcuserdata/
+*.xcworkspace/
+*.xcodeproj/project.xcworkspace/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/xcshareddata/
+
+# 빌드 결과물
+build/
+*.app
+*.ipa
+*.dSYM/
+
+# Swift Package Manager
+.swiftpm/
+Packages/
+Package.pins
+
+# Carthage
+Carthage/
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# 환경 변수 및 인증 정보
+.env
+*.keychain
