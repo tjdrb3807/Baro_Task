@@ -6,3 +6,75 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
+
+final class SignUpViewModel: ViewModelType {
+    struct Input {
+        let idEditingDidBegin: Observable<String>
+        let idEditingDidEnd: Observable<String>
+        let passwordEditingDidBegin: Observable<String>
+        let passwordEditingDidEnd: Observable<String>
+        let confirmPasswordEditingDidEnd: Observable<String>
+        let nicknameEditingDidEnd: Observable<String>
+    }
+    
+    struct Output {
+        let shouldClearIDText: Driver<Bool>
+        let isIDValid: Driver<Bool>
+        let shouldClearPasswordText: Driver<Bool>
+        let isPasswordValid: Driver<Bool>
+        let isConfirmPasswordValid: Driver<Bool>
+        let isSignUpEnabled: Driver<Bool>
+    }
+    
+    let disposeBag = DisposeBag()
+    
+    func transform(input: Input) -> Output {
+        let shouldClearIDText = input.idEditingDidBegin
+            .map { !$0.isEmpty && !ValidationService.isValidID($0) }
+            .asDriver(onErrorJustReturn: false)
+        
+        let isIDValid = input.idEditingDidEnd
+            .map { ValidationService.isValidID($0) }
+            .asDriver(onErrorJustReturn: false)
+        
+        let shouldClearPasswordText = input.passwordEditingDidBegin
+            .map { !$0.isEmpty && !ValidationService.isValidPassword($0) }
+            .asDriver(onErrorJustReturn: false)
+        
+        let isPasswordValid = input.passwordEditingDidEnd
+            .map { ValidationService.isValidPassword($0) }
+            .asDriver(onErrorJustReturn: false)
+        
+        let isConfirmPasswordValid = Observable
+            .combineLatest(
+                input.passwordEditingDidEnd,
+                input.confirmPasswordEditingDidEnd
+            ).map { password, confirmPassword in
+                password == confirmPassword && ValidationService.isValidPassword(confirmPassword)
+            }.asDriver(onErrorJustReturn: false)
+        
+        let isNicknameValid = input.nicknameEditingDidEnd
+            .map { !$0.isEmpty }
+            .distinctUntilChanged()
+            .asDriver(onErrorJustReturn: false)
+        
+        let isSignUpEnabled = Driver
+            .combineLatest(
+                isIDValid,
+                isPasswordValid,
+                isConfirmPasswordValid,
+                isNicknameValid
+            ) { $0 && $1 && $2 && $3 }
+            
+        return Output(
+            shouldClearIDText: shouldClearIDText,
+            isIDValid: isIDValid,
+            shouldClearPasswordText: shouldClearPasswordText,
+            isPasswordValid: isPasswordValid,
+            isConfirmPasswordValid: isConfirmPasswordValid,
+            isSignUpEnabled: isSignUpEnabled
+        )
+    }
+}
