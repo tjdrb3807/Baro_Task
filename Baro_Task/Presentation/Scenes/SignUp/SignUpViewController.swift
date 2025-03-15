@@ -93,6 +93,8 @@ final class SignUpViewController: BaseViewController {
     }
     
     override func configureViews() {
+        super.configureViews()
+        
         [headLineLabel, contentVStackView, signUpButton].forEach { view.addSubview($0) }
         
         [idInputView, passwordInputView, confirmPasswordInputView, nicknameInputView].forEach {

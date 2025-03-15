@@ -39,6 +39,8 @@ final class LoginViewController: BaseViewController {
     }
     
     override func configureViews() {
+        super.configureViews()
+        
         [startButton].forEach { view.addSubview($0) }
     }
     

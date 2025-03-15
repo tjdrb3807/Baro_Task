@@ -30,7 +30,9 @@ class BaseViewController: UIViewController {
     func bind() { }
     
     /// 서브 뷰를 추가하고 초기 UI 설정하는 메서드
-    func configureViews() { }
+    func configureViews() {
+        view.backgroundColor = .systemBackground
+    }
     
     /// AutoLayout을 설정하는 메서드
     func configureConstraints() { }
