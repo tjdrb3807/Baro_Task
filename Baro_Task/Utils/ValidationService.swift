@@ -8,7 +8,7 @@
 import Foundation
 
 struct ValidationService {
-    static func idValidID(_ id: String) -> Bool {
+    static func isValidID(_ id: String) -> Bool {
         // 전체 이메일 형식 검증
         let emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"
         guard NSPredicate(format: "SELF MATCHES %@", emailRegex).evaluate(with: id) else { return false }
