@@ -93,8 +93,13 @@ final class SignUpViewController: BaseViewController {
             }).disposed(by: disposeBag)
         
         output.signUpResult
-            .drive(onNext: {
-                print($0)
+            .drive(onNext: { [weak self] result in
+                guard let self = self else { return }
+                if result {
+                    self.navigationController?.setViewControllers([MainViewController()], animated: true)
+                } else {
+                    print("로그인 실패")
+                }
             }).disposed(by: disposeBag)
     }
     

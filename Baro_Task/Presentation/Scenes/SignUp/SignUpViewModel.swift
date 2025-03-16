@@ -71,15 +71,16 @@ final class SignUpViewModel: ViewModelType {
             ) { $0 && $1 && $2 && $3 }
 
         let signUpResult = input.signUpButtonDidTap
-            .do(onNext: {
-                print("SignUpButton Did tap")
-            })
             .withLatestFrom(Observable.combineLatest(
                 input.idEditingDidEnd,
                 input.confirmPasswordEditingDidEnd,
                 input.nicknameEditingDidEnd
             )).flatMapLatest { id, password, nickname -> Observable<Bool> in
                 let result = CoreDataManager.shared.saveUser(id: id, password: password, nickname: nickname)
+                
+                if result {
+                    self.saveLoginSession(id: id, nickname: nickname)
+                }
                 
                 return Observable.just(result)
             }.asDriver(onErrorJustReturn: false)
@@ -93,5 +94,13 @@ final class SignUpViewModel: ViewModelType {
             isSignUpEnabled: isSignUpEnabled,
             signUpResult: signUpResult
         )
+    }
+}
+
+extension SignUpViewModel {
+    private func saveLoginSession(id: String, nickname: String) {
+        UserDefaults.standard.set(id, forKey: "loggedInUserId")
+        UserDefaults.standard.set(nickname, forKey: "loggedInNickname")
+        UserDefaults.standard.synchronize()
     }
 }

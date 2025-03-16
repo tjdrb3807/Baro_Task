@@ -23,11 +23,9 @@ final class LoginViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         let navigateToScreen = input.startButtonTap
             .map { _ in
-                // 자동 로그인 여부 확인
-                let isLoggedIn = UserDefaults.standard.bool(forKey: "isLoggedIn")
-                let userID = UserDefaults.standard.string(forKey: "loggedInUserID")
+                let userID = UserDefaults.standard.string(forKey: "loggedInUserId")
                 
-                return isLoggedIn && userID != nil
+                return userID != nil
             }
             
         return Output(navigateToScreen: navigateToScreen)
