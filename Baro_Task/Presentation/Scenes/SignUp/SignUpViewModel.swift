@@ -17,6 +17,7 @@ final class SignUpViewModel: ViewModelType {
         let passwordEditingDidEnd: Observable<String>
         let confirmPasswordEditingDidEnd: Observable<String>
         let nicknameEditingDidEnd: Observable<String>
+        let signUpButtonDidTap: Observable<Void>
     }
     
     struct Output {
@@ -26,6 +27,7 @@ final class SignUpViewModel: ViewModelType {
         let isPasswordValid: Driver<Bool>
         let isConfirmPasswordValid: Driver<Bool>
         let isSignUpEnabled: Driver<Bool>
+        let signUpResult: Driver<Bool>
     }
     
     let disposeBag = DisposeBag()
@@ -67,6 +69,20 @@ final class SignUpViewModel: ViewModelType {
                 isConfirmPasswordValid,
                 isNicknameValid
             ) { $0 && $1 && $2 && $3 }
+
+        let signUpResult = input.signUpButtonDidTap
+            .do(onNext: {
+                print("SignUpButton Did tap")
+            })
+            .withLatestFrom(Observable.combineLatest(
+                input.idEditingDidEnd,
+                input.confirmPasswordEditingDidEnd,
+                input.nicknameEditingDidEnd
+            )).flatMapLatest { id, password, nickname -> Observable<Bool> in
+                let result = CoreDataManager.shared.saveUser(id: id, password: password, nickname: nickname)
+                
+                return Observable.just(result)
+            }.asDriver(onErrorJustReturn: false)
             
         return Output(
             shouldClearIDText: shouldClearIDText,
@@ -74,7 +90,8 @@ final class SignUpViewModel: ViewModelType {
             shouldClearPasswordText: shouldClearPasswordText,
             isPasswordValid: isPasswordValid,
             isConfirmPasswordValid: isConfirmPasswordValid,
-            isSignUpEnabled: isSignUpEnabled
+            isSignUpEnabled: isSignUpEnabled,
+            signUpResult: signUpResult
         )
     }
 }

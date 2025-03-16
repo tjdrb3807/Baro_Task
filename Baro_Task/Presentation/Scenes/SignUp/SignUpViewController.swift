@@ -59,7 +59,8 @@ final class SignUpViewController: BaseViewController {
             passwordEditingDidBegin: passwordInputView.textField.rx.textOnEditingDidBegin,
             passwordEditingDidEnd: passwordInputView.textField.rx.textOnEditingDidEnd,
             confirmPasswordEditingDidEnd: confirmPasswordInputView.textField.rx.textOnEditingDidEnd,
-            nicknameEditingDidEnd: nicknameInputView.textField.rx.text.orEmpty.asObservable()
+            nicknameEditingDidEnd: nicknameInputView.textField.rx.text.orEmpty.asObservable(),
+            signUpButtonDidTap: signUpButton.rx.tap.asObservable()
         )
         
         let output = viewModel.transform(input: input)
@@ -89,6 +90,11 @@ final class SignUpViewController: BaseViewController {
         output.isSignUpEnabled
             .drive(onNext: { [weak self] in
                 self?.signUpButton.setEnabled($0)
+            }).disposed(by: disposeBag)
+        
+        output.signUpResult
+            .drive(onNext: {
+                print($0)
             }).disposed(by: disposeBag)
     }
     
