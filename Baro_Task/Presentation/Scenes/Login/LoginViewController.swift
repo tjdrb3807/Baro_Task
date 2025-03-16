@@ -34,7 +34,9 @@ final class LoginViewController: BaseViewController {
             .observe(on: MainScheduler.instance)
             .withUnretained(self)
             .subscribe(onNext: { vc, isLoggedIn in
-                vc.navigate(to: isLoggedIn ? MainViewController() : SignUpViewController(viewModel: SignUpViewModel()))
+                vc.navigate(
+                    to: isLoggedIn ?
+                    MainViewController(viewModel: MainViewModel()) : SignUpViewController(viewModel: SignUpViewModel()))
             }).disposed(by: disposeBag)
     }
     

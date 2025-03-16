@@ -96,7 +96,10 @@ final class SignUpViewController: BaseViewController {
             .drive(onNext: { [weak self] result in
                 guard let self = self else { return }
                 if result {
-                    self.navigationController?.setViewControllers([MainViewController()], animated: true)
+                    self.navigationController?
+                        .setViewControllers(
+                            [MainViewController(viewModel: MainViewModel())],
+                            animated: true)
                 } else {
                     print("로그인 실패")
                 }
