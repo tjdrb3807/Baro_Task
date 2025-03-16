@@ -23,7 +23,7 @@ final class LoginViewModel: ViewModelType {
     func transform(input: Input) -> Output {
         let navigateToScreen = input.startButtonTap
             .map { _ in
-                let userID = UserDefaults.standard.string(forKey: "loggedInUserId")
+                let userID = LoginManager.getLoggedInUserID()
                 
                 return userID != nil
             }

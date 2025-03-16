@@ -79,7 +79,7 @@ final class SignUpViewModel: ViewModelType {
                 let result = CoreDataManager.shared.saveUser(id: id, password: password, nickname: nickname)
                 
                 if result {
-                    self.saveLoginSession(id: id, nickname: nickname)
+                    LoginManager.saveLoginSession(id: id, nickname: nickname)
                 }
                 
                 return Observable.just(result)
@@ -94,13 +94,5 @@ final class SignUpViewModel: ViewModelType {
             isSignUpEnabled: isSignUpEnabled,
             signUpResult: signUpResult
         )
-    }
-}
-
-extension SignUpViewModel {
-    private func saveLoginSession(id: String, nickname: String) {
-        UserDefaults.standard.set(id, forKey: "loggedInUserId")
-        UserDefaults.standard.set(nickname, forKey: "loggedInNickname")
-        UserDefaults.standard.synchronize()
     }
 }
