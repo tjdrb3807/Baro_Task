@@ -45,7 +45,7 @@ final class MainViewModel: ViewModelType {
 extension MainViewModel {
     private func withdrawUser() -> Observable<Void> {
         Observable.create { observer in
-            CoreDataManager.shared.deleteUser(id: LoginManager.getLoggedInUserID()!)
+            CoreDataManager.shared.deleteUser(id: LoginManager.getLoggedInUserID() ?? "")
             
             LoginManager.clearLoginSession()
             

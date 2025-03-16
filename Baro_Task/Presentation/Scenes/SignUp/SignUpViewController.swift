@@ -52,6 +52,12 @@ final class SignUpViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     override func bind() {
         let input = SignUpViewModel.Input(
             idEditingDidBegin: idInputView.textField.rx.textOnEditingDidBegin,

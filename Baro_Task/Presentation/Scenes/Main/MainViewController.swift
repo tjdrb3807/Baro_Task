@@ -71,7 +71,10 @@ final class MainViewController: BaseViewController {
                    output.withdrawalCompletd.asObservable())
             .withUnretained(self)
             .subscribe(onNext: { vc, _ in
-                vc.navigationController?.popViewController(animated: true)
+                let LoginViewModel = LoginViewModel()
+                let LoginViewController = LoginViewController(viewModel: LoginViewModel)
+                
+                vc.navigationController?.setViewControllers([LoginViewController], animated: false)
             }).disposed(by: disposeBag)
     }
     
