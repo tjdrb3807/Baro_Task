@@ -101,7 +101,19 @@ final class SignUpViewController: BaseViewController {
                             [MainViewController(viewModel: MainViewModel())],
                             animated: true)
                 } else {
-                    print("로그인 실패")
+                    // 중복된 아이디 알럿 표시
+                    let alert = UIAlertController(
+                        title: "회원가입 실패",
+                        message: "중복된 아이디입니다.",
+                        preferredStyle: .alert
+                    )
+                    
+                    let confirmAction = UIAlertAction(title: "확인", style: .default) { _ in
+                        self.idInputView.textField.becomeFirstResponder()
+                    }
+                    
+                    alert.addAction(confirmAction)
+                    self.present(alert, animated: true, completion: nil)
                 }
             }).disposed(by: disposeBag)
     }
