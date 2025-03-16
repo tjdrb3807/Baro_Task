@@ -27,19 +27,6 @@ Baro_Task/
 └── SupportingFiles/    # 프로젝트 설정 관련 파일 (Info.plist 등)
 ```
 
-## 🚀 실행 방법
-1. 이 저장소를 클론합니다:
-   ```sh
-   git clone https://github.com/your-repo/Baro_Task.git
-   cd Baro_Task
-   ```
-2. Xcode에서 `Baro_Task.xcodeproj` 파일을 엽니다.
-3. 필요한 라이브러리를 설치합니다 (CocoaPods 사용 시):
-   ```sh
-   pod install
-   ```
-4. `Command + R`을 눌러 실행합니다.
-
 ## 📌 주요 기능
 - **로그인 화면**
   - ID, 비밀번호 입력 후 로그인 가능
